@@ -25,6 +25,5 @@ public class BombScript : MonoBehaviour {
     void OnTriggerExit()
     {
         transform.collider.isTrigger = false;
-        Debug.Log("trigger");
     }
 }
