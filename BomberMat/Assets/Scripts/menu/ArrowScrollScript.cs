@@ -14,7 +14,7 @@ public class ArrowScrollScript : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         this.contents = GameObject.FindGameObjectsWithTag("ContentFleet");
-        this.proportion = GameObject.Find("ScrollBox").GetComponent<ScrollBoxScript>().getScale();
+        //this.proportion = GameObject.Find("ScrollBox").GetComponent<ScrollBoxScript>().getScale();
 	}
 	
 	// Update is called once per frame
