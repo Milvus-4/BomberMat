@@ -21,6 +21,8 @@ public class GenerateScript : MonoBehaviour {
         sizeX = 19;
         sizeZ = 10;
 
+        StaticBoard.sizeX = sizeX;
+        StaticBoard.sizeZ = sizeZ;
 
         map = new GameObject[sizeX][];
 

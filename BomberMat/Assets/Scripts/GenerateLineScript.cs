@@ -1,11 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class StaticBoard : MonoBehaviour {
+public class GenerateLineScript : MonoBehaviour {
 
-    static public GameObject[][] map;
-    static public int sizeX;
-    static public int sizeZ;
 	// Use this for initialization
 	void Start () {
 	
