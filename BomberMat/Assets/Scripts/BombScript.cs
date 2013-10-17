@@ -3,21 +3,27 @@ using System.Collections;
 
 public class BombScript : MonoBehaviour {
 
-    enum bombType
+    
+
+    enum direction
     {
-        PAWN,
-        QUEEN,
-        KNIGHT,
-        ROOK,
-        BISHOP,
-        KING
-    };
+        NORTH,
+        SOUTH,
+        EAST,
+        WEST,
+        SOUTH_EAST,
+        SOUTH_WEST,
+        NORTH_EAST,
+        NORTH_WEST
+    }
+
 
 
     public float timeBeforeExplosion = 5f;
     public GameObject _fire;
 
     private float time;
+    private int type { set; get; }
 
 
 	// Use this for initialization
@@ -32,8 +38,9 @@ public class BombScript : MonoBehaviour {
         if (Time.time - time >= timeBeforeExplosion)
         {
             Debug.Log("explosion");
-            explosion((int)bombType.KING);
-            
+            explosion(type);
+
+            Destroy(gameObject);
         }
 	}
 
@@ -50,11 +57,11 @@ public class BombScript : MonoBehaviour {
         int z = (int) transform.localPosition.z;
         switch (type)
         {
-            case (int)bombType.PAWN:
+            case (int)StaticBoard.bombType.PAWN:
                 //explosion dans la direction de l'autre joueur ou vers le haut
                 break;
 
-            case (int)bombType.KING:
+            case (int)StaticBoard.bombType.KING:
                 //petit +
                 createFire(x, z);
                 createFire(x - 1, z);
@@ -63,27 +70,51 @@ public class BombScript : MonoBehaviour {
                 createFire(x, z + 1);
                 break;
 
-            case (int)bombType.KNIGHT:
+            case (int)StaticBoard.bombType.KNIGHT:
                 //Huit cases des huit possibilités d'un cavalier
+                createFire(x, z);
+                createFire(x - 1, z - 2);
+                createFire(x - 1, z + 2);
+                createFire(x - 2, z - 1);
+                createFire(x - 2, z + 1);
+                createFire(x + 1, z + 2);
+                createFire(x + 1, z - 2);
+                createFire(x + 2, z - 1);
+                createFire(x + 2, z + 1);
                 break;
 
-            case (int)bombType.QUEEN:
+            case (int)StaticBoard.bombType.QUEEN:
                 //Gros + et x en même temps
+                longFire(x, z, (int)direction.NORTH, 1);
+                longFire(x, z, (int)direction.SOUTH, 7);
+                longFire(x, z, (int)direction.EAST, 7);
+                longFire(x, z, (int)direction.WEST, 7);
+                longFire(x, z, (int)direction.NORTH_WEST, 7);
+                longFire(x, z, (int)direction.NORTH_EAST, 7);
+                longFire(x, z, (int)direction.SOUTH_EAST, 7);
+                longFire(x, z, (int)direction.SOUTH_WEST, 7);
                 break;
 
-            case (int)bombType.ROOK:
+            case (int)StaticBoard.bombType.ROOK:
                 //Gros +
+                longFire(x, z, (int)direction.NORTH, 1);
+                longFire(x, z, (int)direction.SOUTH, 7);
+                longFire(x, z, (int)direction.EAST, 7);
+                longFire(x, z, (int)direction.WEST, 7);
                 break;
 
-            case (int)bombType.BISHOP:
+            case (int)StaticBoard.bombType.BISHOP:
                 //Gros x
+                longFire(x, z, (int)direction.NORTH_WEST, 7);
+                longFire(x, z, (int)direction.NORTH_EAST, 7);
+                longFire(x, z, (int)direction.SOUTH_EAST, 7);
+                longFire(x, z, (int)direction.SOUTH_WEST, 7);
                 break;
 
             default :
                 break;
 
         }
-        Destroy(gameObject);
     }
 
     void createFire(int x, int y)
@@ -91,12 +122,50 @@ public class BombScript : MonoBehaviour {
         if (!testCollision(x, y))
         {
             Instantiate(_fire, new Vector3(x, 0, y), Quaternion.identity);
-        }
+        }   
+    }
+
+    void longFire(int x, int y, int dir, int range)
+    {
+
         
+        if (!testCollision(x, y) && range > 0)
+        {
+           
+            Instantiate(_fire, new Vector3(x, 0, y), Quaternion.identity);
+            switch (dir)
+            {
+                case (int)direction.NORTH :
+                    longFire(x + 1, y, dir, range - 1);
+                    break;
+                case (int)direction.SOUTH :
+                    longFire(x - 1, y, dir, range - 1);
+                    break;
+                case (int)direction.EAST:
+                    longFire(x, y+1, dir, range - 1);
+                    break;
+                case (int)direction.WEST:
+                    longFire(x, y-1, dir, range - 1);
+                    break;
+                case (int)direction.NORTH_EAST:
+                    longFire(x + 1, y+1, dir, range - 1);
+                    break;
+                case (int)direction.NORTH_WEST:
+                    longFire(x + 1, y-1, dir, range - 1);
+                    break;
+                case (int)direction.SOUTH_EAST:
+                    longFire(x - 1, y+1, dir, range - 1);
+                    break;
+                case (int)direction.SOUTH_WEST:
+                    longFire(x - 1, y-1, dir, range - 1);
+                    break;
+            }
+        }  
     }
 
     bool testCollision(int x, int y)
     {
+        //Debug.Log("stop les bugs là !!");
         //Il y a collision si on tape contre un loc
         if (x < 0 || y < 0 || x >= StaticBoard.sizeX || y >= StaticBoard.sizeZ)
             return true;

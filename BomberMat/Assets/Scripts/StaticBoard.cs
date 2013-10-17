@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 public class StaticBoard : MonoBehaviour {
 
@@ -8,6 +9,16 @@ public class StaticBoard : MonoBehaviour {
     static public int sizeZ;
     static public GameObject[][] bomb;
 
+    [Flags]
+    public enum bombType
+    {
+        PAWN,
+        QUEEN,
+        KNIGHT,
+        ROOK,
+        BISHOP,
+        KING
+    };
 	// Use this for initialization
 	void Start () {
 	
