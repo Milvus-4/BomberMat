@@ -23,21 +23,23 @@ public class BombScript : MonoBehaviour {
     public GameObject _fire;
 
     private float time;
-    private int type = 4;
+    public int _type;
+
+    private bool show = false;
 
 
 	// Use this for initialization
 	void Start () {
-        StaticBoard.bomb[(int)transform.localPosition.x][(int)transform.localPosition.z] = gameObject;
+        if(!show)
         time = Time.time;
 	}
 	
 	// Update is called once per frame
 	void Update () {
 
-        if (Time.time - time >= timeBeforeExplosion)
+        if (Time.time - time >= timeBeforeExplosion && !show)
         {
-            explosion(type);
+            explosion(_type);
 
             Destroy(gameObject);
         }
@@ -46,6 +48,11 @@ public class BombScript : MonoBehaviour {
     void OnTriggerExit()
     {
         transform.collider.isTrigger = false;
+    }
+
+    public void setShow(bool value)
+    {
+        show = value;
     }
 
     //Cette fonction sert à créer les patterns des bombes
@@ -58,6 +65,7 @@ public class BombScript : MonoBehaviour {
         {
             case (int)StaticBoard.bombType.PAWN:
                 //explosion dans la direction de l'autre joueur ou vers le haut
+                longFire(x, z, (int)direction.NORTH, 2);
                 break;
 
             case (int)StaticBoard.bombType.KING:
@@ -67,6 +75,10 @@ public class BombScript : MonoBehaviour {
                 createFire(x + 1, z);
                 createFire(x, z - 1);
                 createFire(x, z + 1);
+                createFire(x - 1, z - 1);
+                createFire(x + 1, z - 1);
+                createFire(x - 1, z + 1);
+                createFire(x + 1, z + 1);
                 break;
 
             case (int)StaticBoard.bombType.KNIGHT:
@@ -84,7 +96,7 @@ public class BombScript : MonoBehaviour {
 
             case (int)StaticBoard.bombType.QUEEN:
                 //Gros + et x en même temps
-                longFire(x, z, (int)direction.NORTH, 1);
+                longFire(x, z, (int)direction.NORTH, 7);
                 longFire(x, z, (int)direction.SOUTH, 7);
                 longFire(x, z, (int)direction.EAST, 7);
                 longFire(x, z, (int)direction.WEST, 7);
@@ -96,7 +108,7 @@ public class BombScript : MonoBehaviour {
 
             case (int)StaticBoard.bombType.ROOK:
                 //Gros +
-                longFire(x, z, (int)direction.NORTH, 1);
+                longFire(x, z, (int)direction.NORTH, 7);
                 longFire(x, z, (int)direction.SOUTH, 7);
                 longFire(x, z, (int)direction.EAST, 7);
                 longFire(x, z, (int)direction.WEST, 7);

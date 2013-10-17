@@ -3,14 +3,19 @@ using System.Collections;
 
 public class PlayerScript : MonoBehaviour {
 
+    public GameObject _selector;
     public float player_speed=3; //vitesse du joueur
     
     private Vector3 lastBombPosition; //position de la dernière bombe posée
     private Vector3 roundedPlayerPosition; //position arroudie du joueur
     private int playerID;
     public GameObject winText;
-	void Start () {
 
+    private SelectBombScript selectorScript;
+
+
+	void Start () {
+		selectorScript = _selector.GetComponent<SelectBombScript>();
 	}
 
     void FixedUpdate()
@@ -66,11 +71,39 @@ public class PlayerScript : MonoBehaviour {
 
        if (StaticBoard.bomb[(int)roundedPlayerPosition.x][(int)roundedPlayerPosition.z] == null)//ne pose pas une bombe sur une autre
        {
-            //charge le prefab Bomb
-            GameObject bomb = (GameObject)Instantiate(Resources.Load("Prefab/Bomb"));
-            bomb.transform.position = roundedPlayerPosition;
-            lastBombPosition = roundedPlayerPosition;
 
+           GameObject bomb = null;
+            //charge le prefab Bomb du type correspondant
+           switch (selectorScript.GetNextBomb())
+           {
+               case (int)StaticBoard.bombType.BISHOP:
+                   bomb = (GameObject)Instantiate(Resources.Load("Prefab/Bomb/Bishop"));
+                   bomb.transform.position = roundedPlayerPosition;
+                   break;
+               case (int)StaticBoard.bombType.KING:
+                   bomb = (GameObject)Instantiate(Resources.Load("Prefab/Bomb/King"));
+                   bomb.transform.position = roundedPlayerPosition;
+                   break;
+               case (int)StaticBoard.bombType.KNIGHT:
+                   bomb = (GameObject)Instantiate(Resources.Load("Prefab/Bomb/Knight"));
+                   bomb.transform.position = roundedPlayerPosition;
+                   break;
+               case (int)StaticBoard.bombType.QUEEN:
+                   bomb = (GameObject)Instantiate(Resources.Load("Prefab/Bomb/Queen"));
+                   bomb.transform.position = roundedPlayerPosition;
+                   break;
+               case (int)StaticBoard.bombType.PAWN:
+                   bomb = (GameObject)Instantiate(Resources.Load("Prefab/Bomb/Pawn"));
+                   bomb.transform.position = roundedPlayerPosition;
+                   break;
+               case (int)StaticBoard.bombType.ROOK:
+                   bomb = (GameObject)Instantiate(Resources.Load("Prefab/Bomb/Rook"));
+                   bomb.transform.position = roundedPlayerPosition;
+                   break;
+           }
+           
+           if(bomb !=null)
+              StaticBoard.bomb[(int)(transform.localPosition.x + .5f)][(int)(transform.localPosition.z + .5f)] = bomb;
         }
     }
 
