@@ -25,7 +25,7 @@ public class GenerateScript : MonoBehaviour {
         StaticBoard.sizeZ = sizeZ;
 
         map = new GameObject[sizeX][];
-
+        StaticBoard.bomb = new GameObject[sizeX][];
         _probabilityBlock = _probabilityBlock > 100 ? 100 : _probabilityBlock < 0 ? 0 : _probabilityBlock;
         _probabilityIBlock = _probabilityIBlock > 100 ? 100 : _probabilityIBlock < 0 ? 0 : _probabilityIBlock;
 
@@ -33,6 +33,7 @@ public class GenerateScript : MonoBehaviour {
         for (int i = 0; i < sizeX; i += 1)
         {
             map[i] = new GameObject[sizeZ];
+            StaticBoard.bomb[i] = new GameObject[sizeZ];
             for (int j = 0; j < sizeZ; j += 1)
             {
 
@@ -40,43 +41,49 @@ public class GenerateScript : MonoBehaviour {
                 if (i % 2 == 1)
                 {
                     isIBlock = Random.Range(0f, 1f) < _probabilityIBlock / 100f;
-                    Debug.Log(Random.Range(0f, 1f));
-                    Debug.Log(1 - _probabilityBlock / 100f);
                 }
                 if (!isIBlock)
                     isBlock = Random.Range(0f, 1f) < _probabilityBlock / 100f;
 
                 if (isIBlock)
-                    map[i][j] = Instantiate(_indestructileBloc, new Vector3(((float)i) - 4f, 0f, ((float)j) - 4f), Quaternion.identity) as GameObject;
+                    map[i][j] = Instantiate(_indestructileBloc, new Vector3((float)i , 0f, (float)j ), Quaternion.identity) as GameObject;
                 if (isBlock)
-                    map[i][j] = Instantiate(_destructileBloc, new Vector3(((float)i) - 4f, 0f, ((float)j) - 4f), Quaternion.identity) as GameObject;
+                    map[i][j] = Instantiate(_destructileBloc, new Vector3((float)i, 0f, (float)j), Quaternion.identity) as GameObject;
                 isIBlock = false;
                 isBlock = false;
 
             }
         }
+
+
+
         //On stock la map générer dans la map static
         StaticBoard.map = map;
-
-        destroyCorner();
+        
 
         //Les contours sont différents en fonction du mode : 0 = classic, 1 = tetris
-        int mode = 0;
+        int mode = 1;
         int start = -1;
         if (mode == 1)
             start = 0;
         //Création des contours
         for (int i = start; i <= sizeX; i += 1)
         {
-            Instantiate(_indestructileBloc, new Vector3(((float)i) - 4f, 0f, (-5f)), Quaternion.identity);
-            Instantiate(_indestructileBloc, new Vector3(((float)i) - 4f, 0f, sizeZ - 4f), Quaternion.identity);
+            Instantiate(_indestructileBloc, new Vector3((float)i, 0f, -1f), Quaternion.identity);
+            Instantiate(_indestructileBloc, new Vector3((float)i, 0f, sizeZ), Quaternion.identity);
         }
-        for (int i = 0; i < sizeZ; i += 1)
+        if (mode == 0)
         {
-            Instantiate(_indestructileBloc, new Vector3(sizeX - 4f, 0f, i - 4f), Quaternion.identity);
-            if(mode == 0)
-                Instantiate(_indestructileBloc, new Vector3(- 5f, 0f, i - 4f), Quaternion.identity);
+            for (int i = 0; i < sizeZ; i += 1)
+            {
+                Instantiate(_indestructileBloc, new Vector3(sizeX, 0f, i), Quaternion.identity);
+
+                Instantiate(_indestructileBloc, new Vector3(-1f, 0f, i), Quaternion.identity);
+            }
+            destroyCorner();
         }
+        else
+            destroyCenter();
 
     }
 
@@ -86,6 +93,7 @@ public class GenerateScript : MonoBehaviour {
 	
 	}
 
+    //Détruit les blocs dans les coin pour laisser la place au joueur
     void destroyCorner()
     {
         GameObject[][] map = StaticBoard.map;
@@ -95,5 +103,18 @@ public class GenerateScript : MonoBehaviour {
         Destroy(map[sizeX-1][sizeZ-1]);
         Destroy(map[sizeX-1][sizeZ-2]);
         Destroy(map[sizeX-2][sizeZ-1]);
+    }
+
+    //Détruit les blocs au centre pour laisser la place au joueur
+    void destroyCenter()
+    {
+        GameObject[][] map = StaticBoard.map;
+        int centerX = StaticBoard.sizeX/2;
+        int centerZ = StaticBoard.sizeZ/2;
+        Destroy(map[centerX][centerZ]);
+        Destroy(map[centerX-1][centerZ]);
+        Destroy(map[centerX+1][centerZ]);
+        Destroy(map[centerX][centerZ-1]);
+        Destroy(map[centerX][centerZ+1]);
     }
 }
