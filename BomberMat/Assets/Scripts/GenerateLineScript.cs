@@ -40,7 +40,7 @@ public class GenerateLineScript : MonoBehaviour {
         if (nbLineCreated > 0)
             MoveMap(ref line);
 
-        //Dès que la probabilité de création d'un bloc est de 80% et de 30% pour les inde, on n'augmente plus...
+        //Dès que la probabilité de création d'un bloc est de 80% et de 30% pour les inde, on ne l'augmente plus...
         if (nbLineCreated < 40)
         {
             probabilityBlock++;

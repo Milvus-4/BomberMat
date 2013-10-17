@@ -1,14 +1,19 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class ManagePlayerScript : MonoBehaviour {
+public class ManagePlayerScript : MonoBehaviour
+{
 
-    public float waitingTime=30f;
+    public float waitingTime = 30f;
     private float time;
 
-	void Start () {
-	    
-	}
+    public GameObject cmpt;
+    private TextMesh tm;
+
+    void Start()
+    {
+        tm = (TextMesh)cmpt.GetComponent<TextMesh>();
+    }
     void OnGUI()
     {
         /*GUI.Box(new Rect(0, 0, 100, 50),"id player : "+ Network.player.ToString() );
@@ -19,12 +24,16 @@ public class ManagePlayerScript : MonoBehaviour {
 
     }
 
-	void Update () {
+    void Update()
+    {
         if (Time.time - time > waitingTime && Network.connections.Length >= 2)
         {
             networkView.RPC("LaunchGame", RPCMode.All);
         }
-	}
+        //compteur de secondes d'attentes
+        int sec = (int)(waitingTime - Time.time - time);
+        tm.text = Mathf.Clamp(sec, 0, waitingTime).ToString();
+    }
 
     void OnPlayerConnected(NetworkPlayer player)
     {

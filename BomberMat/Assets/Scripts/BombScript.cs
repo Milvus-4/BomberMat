@@ -177,7 +177,7 @@ public class BombScript : MonoBehaviour {
     bool testCollision(int x, int y)
     {
         //Debug.Log("stop les bugs là !!");
-        //Il y a collision si on tape contre un loc
+        //Il y a collision si on tape contre un bloc
         if (x < 0 || y < 0 || x >= StaticBoard.sizeX || y >= StaticBoard.sizeZ)
             return true;
         if (StaticBoard.map[x][y] != null)
@@ -186,6 +186,10 @@ public class BombScript : MonoBehaviour {
             if (StaticBoard.map[x][y].tag == "destructible")
             {
                 Destroy(StaticBoard.map[x][y]);
+                StaticBoard.map[x][y] = null;
+                Debug.Log(testLine(x));
+                if (testLine(x))
+                    Debug.Log("MALUS DANS TA FACE §§§§");
             }
             return true;
         }
@@ -196,6 +200,18 @@ public class BombScript : MonoBehaviour {
         }
         //Et il y a aussi collision si on est contre un mur
         return false ;
+    }
 
+    bool testLine(int x)
+    {
+        for (int i = 0; i < StaticBoard.sizeZ; i += 1)
+        {
+            if(StaticBoard.map[x][i] != null)
+                if (StaticBoard.map[x][i].tag == "destructible")
+                {
+                    return false;
+                }
+        }
+        return true;
     }
 }
