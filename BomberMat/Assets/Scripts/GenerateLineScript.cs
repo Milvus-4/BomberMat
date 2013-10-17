@@ -26,14 +26,15 @@ public class GenerateLineScript : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         //Toutes les X secondes, une ligne apparait
-        if (Time.time - time >= _time)
+        if (Time.time - time >= _time && Network.isServer)
         {
-            CreateLine();
+            networkView.RPC("CreateLine", RPCMode.Others);
             time = Time.time;
         }
 	}
 
     //Fonction de création de ligne
+    [RPC]
     void CreateLine()
     {
         if (nbLineCreated > 0)

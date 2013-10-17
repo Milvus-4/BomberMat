@@ -5,9 +5,8 @@ public class PlayerScript : MonoBehaviour {
 
     public float player_speed=3; //vitesse du joueur
     
-    private bool bomb_drop=true; 
-    private Vector3 last_bomb_position; //position de la dernière bombe posée
-    private Vector3 rounded_player_position; //position arroudie du joueur
+    private Vector3 lastBombPosition; //position de la dernière bombe posée
+    private Vector3 roundedPlayerPosition; //position arroudie du joueur
 
 
 	void Start () {
@@ -40,40 +39,27 @@ public class PlayerScript : MonoBehaviour {
         //poser une bombe
         if (Input.GetKeyUp(KeyCode.Space))
         {
-            rounded_player_position = new Vector3((float)(((int)(transform.position.x + 0.5))),
+            DropBomb();
+        }
+
+
+    }
+    void DropBomb()
+    {
+        roundedPlayerPosition = new Vector3((float)(((int)(transform.position.x + 0.5))),
                                         0,
                                         (float)(((int)(transform.position.z + 0.5))));
 
-            if (rounded_player_position != last_bomb_position)//ne pose pas une bombe sur une autre
-            {
-                //charge le prefab Bomb
-                GameObject bomb = (GameObject)Instantiate(Resources.Load("Prefab/Bomb"));
-                bomb.transform.position = rounded_player_position;
-                last_bomb_position = rounded_player_position;
+       if (StaticBoard.bomb[(int)roundedPlayerPosition.x][(int)roundedPlayerPosition.z] == null)//ne pose pas une bombe sur une autre
+       {
+            //charge le prefab Bomb
+            GameObject bomb = (GameObject)Instantiate(Resources.Load("Prefab/Bomb"));
+            bomb.transform.position = roundedPlayerPosition;
+            lastBombPosition = roundedPlayerPosition;
 
-            }
         }
-
-
     }
 	
-	void Update () {
-
-        
-        
+	void Update () {        
 	}
-
-    void OnCollisionStay(Collision coll)
-    {
-        if (coll.gameObject.tag == "bomb")
-        {
-            bomb_drop = false;
-        }
-        Debug.Log(bomb_drop);
-    }
-
-    void OnCollisionExit()
-    {
-        bomb_drop = true;
-    }
 }

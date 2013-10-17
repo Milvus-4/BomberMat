@@ -7,6 +7,7 @@ public class StaticBoard : MonoBehaviour {
     static public int sizeX;
     static public int sizeZ;
     static public GameObject[][] bomb;
+
 	// Use this for initialization
 	void Start () {
 	
