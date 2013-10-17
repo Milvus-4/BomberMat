@@ -23,7 +23,7 @@ public class BombScript : MonoBehaviour {
     public GameObject _fire;
 
     private float time;
-    private int type { set; get; }
+    private int type = 4;
 
 
 	// Use this for initialization
@@ -37,7 +37,6 @@ public class BombScript : MonoBehaviour {
 
         if (Time.time - time >= timeBeforeExplosion)
         {
-            Debug.Log("explosion");
             explosion(type);
 
             Destroy(gameObject);

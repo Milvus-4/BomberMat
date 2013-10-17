@@ -43,7 +43,6 @@ public class NetworkMenu : MonoBehaviour {
             instantiatedMaster = Instantiate(networkMaster, Vector3.zero, Quaternion.identity) as GameObject;
             startNetworkScript = instantiatedMaster.GetComponent("StartNetwork") as StartNetwork;
             startNetworkScript.isServer = true;
-            StaticBoard.isServer = true;
             startNetworkScript.listenPort = serverPort;
         }
         if (GUI.Button(new Rect(10, 60, sizeButtonX, sizeButtonY), "Rejoindre serveur"))
@@ -52,7 +51,6 @@ public class NetworkMenu : MonoBehaviour {
             instantiatedMaster = Instantiate(networkMaster, Vector3.zero, Quaternion.identity) as GameObject;
             startNetworkScript = instantiatedMaster.GetComponent("StartNetwork")as StartNetwork;
             startNetworkScript.isServer = false;
-            StaticBoard.isServer = false;
             startNetworkScript.remoteIP = serverIP;
             startNetworkScript.listenPort = serverPort;
         }

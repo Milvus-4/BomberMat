@@ -9,6 +9,9 @@ public class StaticBoard : MonoBehaviour {
     static public int sizeZ;
     static public GameObject[][] bomb;
 
+
+    public static ArrayList players = new ArrayList();
+
     [Flags]
     public enum bombType
     {

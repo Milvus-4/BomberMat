@@ -31,7 +31,7 @@ public class StartNetwork : MonoBehaviour {
             Network.Connect(remoteIP, listenPort);
         }
 
-        Application.LoadLevel("scene2");
+        Application.LoadLevel("waitingRoom");
 	}
 	
 	
