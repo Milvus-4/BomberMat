@@ -85,7 +85,7 @@ public class GenerateLineScript : MonoBehaviour {
                 Destroy(bomb);
         }
         foreach (GameObject player in players)
-            player.transform.Translate( new Vector3(- 1,0, 0));
+            player.transform.localPosition = new Vector3(player.transform.localPosition.x - 1, player.transform.localPosition.y, player.transform.localPosition.z);
 
         //Suppression de la première ligne
         for ( i = 0; i < StaticBoard.sizeZ; i += 1)
