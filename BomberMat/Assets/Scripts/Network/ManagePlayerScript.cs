@@ -11,11 +11,11 @@ public class ManagePlayerScript : MonoBehaviour {
 	}
     void OnGUI()
     {
-        GUI.Box(new Rect(0, 0, 100, 50),"id player : "+ Network.player.ToString() );
+        /*GUI.Box(new Rect(0, 0, 100, 50),"id player : "+ Network.player.ToString() );
         GUI.Box(new Rect(0, 50, 100, 50), "temps : " + (Time.time - time));
         GUI.Box(new Rect(200, 0, 100, 50), "count : " + StaticBoard.players.Count);
         for (int i = 0; i < StaticBoard.players.Count; i += 1)
-            GUI.Box(new Rect(100, 50 * i, 100, 50), "players connected : " + StaticBoard.players[i]);
+            GUI.Box(new Rect(100, 50 * i, 100, 50), "players connected : " + StaticBoard.players[i]);*/
 
     }
 

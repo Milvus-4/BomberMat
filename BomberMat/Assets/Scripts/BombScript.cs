@@ -65,7 +65,7 @@ public class BombScript : MonoBehaviour {
         {
             case (int)StaticBoard.bombType.PAWN:
                 //explosion dans la direction de l'autre joueur ou vers le haut
-                longFire(x, z, (int)direction.NORTH, 2);
+                longFire(x, z, (int)direction.NORTH, 3);
                 break;
 
             case (int)StaticBoard.bombType.KING:
@@ -96,30 +96,30 @@ public class BombScript : MonoBehaviour {
 
             case (int)StaticBoard.bombType.QUEEN:
                 //Gros + et x en même temps
-                longFire(x, z, (int)direction.NORTH, 7);
-                longFire(x, z, (int)direction.SOUTH, 7);
-                longFire(x, z, (int)direction.EAST, 7);
-                longFire(x, z, (int)direction.WEST, 7);
-                longFire(x, z, (int)direction.NORTH_WEST, 7);
-                longFire(x, z, (int)direction.NORTH_EAST, 7);
-                longFire(x, z, (int)direction.SOUTH_EAST, 7);
-                longFire(x, z, (int)direction.SOUTH_WEST, 7);
+                longFire(x, z, (int)direction.NORTH, 8);
+                longFire(x, z, (int)direction.SOUTH, 8);
+                longFire(x, z, (int)direction.EAST, 8);
+                longFire(x, z, (int)direction.WEST, 8);
+                longFire(x, z, (int)direction.NORTH_WEST, 8);
+                longFire(x, z, (int)direction.NORTH_EAST, 8);
+                longFire(x, z, (int)direction.SOUTH_EAST, 8);
+                longFire(x, z, (int)direction.SOUTH_WEST, 8);
                 break;
 
             case (int)StaticBoard.bombType.ROOK:
                 //Gros +
-                longFire(x, z, (int)direction.NORTH, 7);
-                longFire(x, z, (int)direction.SOUTH, 7);
-                longFire(x, z, (int)direction.EAST, 7);
-                longFire(x, z, (int)direction.WEST, 7);
+                longFire(x, z, (int)direction.NORTH, 8);
+                longFire(x, z, (int)direction.SOUTH, 8);
+                longFire(x, z, (int)direction.EAST, 8);
+                longFire(x, z, (int)direction.WEST, 8);
                 break;
 
             case (int)StaticBoard.bombType.BISHOP:
                 //Gros x
-                longFire(x, z, (int)direction.NORTH_WEST, 7);
-                longFire(x, z, (int)direction.NORTH_EAST, 7);
-                longFire(x, z, (int)direction.SOUTH_EAST, 7);
-                longFire(x, z, (int)direction.SOUTH_WEST, 7);
+                longFire(x, z, (int)direction.NORTH_WEST, 8);
+                longFire(x, z, (int)direction.NORTH_EAST, 8);
+                longFire(x, z, (int)direction.SOUTH_EAST, 8);
+                longFire(x, z, (int)direction.SOUTH_WEST, 8);
                 break;
 
             default :

@@ -35,26 +35,25 @@ public class SelectBombScript : MonoBehaviour {
             switch (bombs[i])
             {
                 case (int)StaticBoard.bombType.BISHOP:
-                    bombsObject[i] = (GameObject) Instantiate(Resources.Load("Prefab/Bomb/Bishop"));
+                    bombsObject[i] = (GameObject) Instantiate(Resources.Load("Prefab/selector/Bishop"));
                     break;
                 case (int)StaticBoard.bombType.KING:
-                    bombsObject[i] = (GameObject) Instantiate(Resources.Load("Prefab/Bomb/King"));
+                    bombsObject[i] = (GameObject) Instantiate(Resources.Load("Prefab/selector/King"));
                     break;
                 case (int)StaticBoard.bombType.KNIGHT:
-                    bombsObject[i] = (GameObject) Instantiate(Resources.Load("Prefab/Bomb/Knight"));
+                    bombsObject[i] = (GameObject) Instantiate(Resources.Load("Prefab/selector/Knight"));
                     break;
                 case (int)StaticBoard.bombType.QUEEN:
-                    bombsObject[i] = (GameObject) Instantiate(Resources.Load("Prefab/Bomb/Queen"));
+                    bombsObject[i] = (GameObject) Instantiate(Resources.Load("Prefab/selector/Queen"));
                     break;
                 case (int)StaticBoard.bombType.PAWN:
-                    bombsObject[i] = (GameObject) Instantiate(Resources.Load("Prefab/Bomb/Pawn"));
+                    bombsObject[i] = (GameObject) Instantiate(Resources.Load("Prefab/selector/Pawn"));
                     break;
                 case (int)StaticBoard.bombType.ROOK:
-                    bombsObject[i] = (GameObject) Instantiate(Resources.Load("Prefab/Bomb/Rook"));
+                    bombsObject[i] = (GameObject) Instantiate(Resources.Load("Prefab/selector/Rook"));
                     break;
             }
             bombsObject[i].transform.localPosition = new Vector3(i * 4f, -4f, -4f);
-            bombsObject[i].GetComponent<BombScript>().setShow(true);
         }
 	}
 	
@@ -102,26 +101,25 @@ public class SelectBombScript : MonoBehaviour {
         switch (bombs[i])
         {
             case (int)StaticBoard.bombType.BISHOP:
-                bombsObject[i] = (GameObject)Instantiate(Resources.Load("Prefab/Bomb/Bishop"));
+                bombsObject[i] = (GameObject)Instantiate(Resources.Load("Prefab/selector/Bishop"));
                 break;
             case (int)StaticBoard.bombType.KING:
-                bombsObject[i] = (GameObject)Instantiate(Resources.Load("Prefab/Bomb/King"));
+                bombsObject[i] = (GameObject)Instantiate(Resources.Load("Prefab/selector/King"));
                 break;
             case (int)StaticBoard.bombType.KNIGHT:
-                bombsObject[i] = (GameObject)Instantiate(Resources.Load("Prefab/Bomb/Knight"));
+                bombsObject[i] = (GameObject)Instantiate(Resources.Load("Prefab/selector/Knight"));
                 break;
             case (int)StaticBoard.bombType.QUEEN:
-                bombsObject[i] = (GameObject)Instantiate(Resources.Load("Prefab/Bomb/Queen"));
+                bombsObject[i] = (GameObject)Instantiate(Resources.Load("Prefab/selector/Queen"));
                 break;
             case (int)StaticBoard.bombType.PAWN:
-                bombsObject[i] = (GameObject)Instantiate(Resources.Load("Prefab/Bomb/Pawn"));
+                bombsObject[i] = (GameObject)Instantiate(Resources.Load("Prefab/selector/Pawn"));
                 break;
             case (int)StaticBoard.bombType.ROOK:
-                bombsObject[i] = (GameObject)Instantiate(Resources.Load("Prefab/Bomb/Rook"));
+                bombsObject[i] = (GameObject)Instantiate(Resources.Load("Prefab/selector/Rook"));
                 break;
         }
         bombsObject[i].transform.localPosition = new Vector3(i * 4f, -4f, -4f);
-        bombsObject[i].GetComponent<BombScript>().setShow(true);
     }
 
 }
