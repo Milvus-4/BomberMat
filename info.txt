@@ -1,0 +1,11 @@
+Nom du groupe : BomberMates
+
+Nom du projet : BomberMat
+
+Description : Un jeu Bomberman mélangé aux échecs et à tétris
+
+
+
+Projet unity : BomberMat/BomberMat
+GameDoc : BomberMat/documents
+Rendu : BomberMat/executables
