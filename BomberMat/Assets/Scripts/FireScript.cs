@@ -3,7 +3,7 @@ using System.Collections;
 
 public class FireScript : MonoBehaviour {
 
-    private float timeBeforeDie = 0.5f;
+    public float timeBeforeDie = 0.5f;
 
     private float time;
 	// Use this for initialization

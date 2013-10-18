@@ -41,11 +41,7 @@ public class PlayerScript : MonoBehaviour {
             transform.localEulerAngles = new Vector3(transform.rotation.x, 180, transform.rotation.z);
         }
         
-        //poser une bombe
-        if (Input.GetKeyUp(KeyCode.Space))
-        {
-            DropBomb();
-        }
+       
 
         //mort du joueur
         if (transform.position.x <= -0.5)
@@ -65,13 +61,12 @@ public class PlayerScript : MonoBehaviour {
     }
     void DropBomb()
     {
-        roundedPlayerPosition = new Vector3((float)(((int)(transform.position.x + 0.5))),
+        roundedPlayerPosition = new Vector3((float)((int)(transform.position.x + 0.5)),
                                         0,
-                                        (float)(((int)(transform.position.z + 0.5))));
-
+                                        (float)((int)(transform.position.z + 0.5)));
+        
        if (StaticBoard.bomb[(int)roundedPlayerPosition.x][(int)roundedPlayerPosition.z] == null)//ne pose pas une bombe sur une autre
        {
-
            GameObject bomb = null;
             //charge le prefab Bomb du type correspondant
            switch (selectorScript.GetNextBomb())
@@ -103,7 +98,7 @@ public class PlayerScript : MonoBehaviour {
            }
            
            if(bomb !=null)
-              StaticBoard.bomb[(int)(transform.localPosition.x + .5f)][(int)(transform.localPosition.z + .5f)] = bomb;
+               StaticBoard.bomb[(int)roundedPlayerPosition.x][(int)roundedPlayerPosition.z] = bomb;
         }
     }
 
@@ -144,7 +139,12 @@ public class PlayerScript : MonoBehaviour {
     }
 
 	
-	void Update () {        
+	void Update () {
+        //poser une bombe
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            DropBomb();
+        }
 	}
 
     void OnGUI()
