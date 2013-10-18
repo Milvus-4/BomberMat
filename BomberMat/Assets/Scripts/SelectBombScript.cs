@@ -9,6 +9,8 @@ public class SelectBombScript : MonoBehaviour {
     private GameObject[] bombsObject;
     private int time;
 
+    private int roque=0;
+
 	// Use this for initialization
 	void Start () {
         time = (int) Time.time; 
@@ -23,11 +25,19 @@ public class SelectBombScript : MonoBehaviour {
                bombs[i] = (int)StaticBoard.bombType.PAWN;
            else if(piece < 45)
                bombs[i] = (int)StaticBoard.bombType.KING;
-           else if(piece < 60)
-               bombs[i] = (int)StaticBoard.bombType.ROOK;
-           else if(piece < 75)
+           else if (piece < 60)
+           {
+               if (roque > 0)
+               {
+                   bombs[i] = (int)StaticBoard.bombType.PAWN;
+                   roque-=1;
+               }
+               else
+                   bombs[i] = (int)StaticBoard.bombType.ROOK;
+           }
+           else if (piece < 75)
                bombs[i] = (int)StaticBoard.bombType.KNIGHT;
-           else if(piece < 90)
+           else if (piece < 90)
                bombs[i] = (int)StaticBoard.bombType.BISHOP;
            else
                bombs[i] = (int)StaticBoard.bombType.QUEEN;
@@ -61,6 +71,11 @@ public class SelectBombScript : MonoBehaviour {
 	void Update () {
 	
 	}
+
+    public void setRoque(int value)
+    {
+        roque = value;
+    }
 
     public int GetNextBomb()
     {

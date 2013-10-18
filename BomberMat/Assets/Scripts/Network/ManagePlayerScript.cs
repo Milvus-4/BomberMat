@@ -7,6 +7,7 @@ public class ManagePlayerScript : MonoBehaviour
     public float waitingTime = 30f;
     private float time;
 
+    private int sec;
     public GameObject cmpt;
     private TextMesh tm;
 
@@ -31,8 +32,12 @@ public class ManagePlayerScript : MonoBehaviour
             networkView.RPC("LaunchGame", RPCMode.All);
         }
         //compteur de secondes d'attentes
-        int sec = (int)(waitingTime - Time.time - time);
-        tm.text = Mathf.Clamp(sec, 0, waitingTime).ToString();
+        if (Network.isServer)
+        {
+            sec = (int)(waitingTime - (Time.time - time));
+            networkView.RPC("sendTime", RPCMode.Others, sec);
+        }
+        tm.text = sec.ToString();
     }
 
     void OnPlayerConnected(NetworkPlayer player)
@@ -42,6 +47,12 @@ public class ManagePlayerScript : MonoBehaviour
             time = Time.time;
         }
         StaticBoard.players.Add(player.ToString());
+    }
+
+    [RPC]
+    void sendTime(int secondes)
+    {
+        sec = secondes;
     }
 
     [RPC]

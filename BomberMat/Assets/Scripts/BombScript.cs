@@ -187,9 +187,9 @@ public class BombScript : MonoBehaviour {
             {
                 Destroy(StaticBoard.map[x][y]);
                 StaticBoard.map[x][y] = null;
-                Debug.Log(testLine(x));
                 if (testLine(x))
-                    Debug.Log("MALUS DANS TA FACE §§§§");
+                    MalusManager.Instance.sendMalusToServer();
+                  //  Debug.Log("MALUS DANS TA FACE §§§§");
             }
             return true;
         }

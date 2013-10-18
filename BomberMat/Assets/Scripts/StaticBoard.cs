@@ -12,7 +12,6 @@ public class StaticBoard : MonoBehaviour {
 
     public static ArrayList players = new ArrayList();
 
-    [Flags]
     public enum bombType
     {
         PAWN,
@@ -22,13 +21,9 @@ public class StaticBoard : MonoBehaviour {
         BISHOP,
         KING
     };
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+
+    static public bool AmIThisGuy(string ID)
+    {
+        return (Network.player.ToString() == ID);
+    }
 }

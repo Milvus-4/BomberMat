@@ -29,13 +29,14 @@ public class GenerateLineScript : MonoBehaviour {
         if (Time.time - time >= _time && Network.isServer)
         {
             networkView.RPC("CreateLine", RPCMode.Others);
+            networkView.RPC("incrementLineCreated", RPCMode.Others);
             time = Time.time;
         }
 	}
 
     //Fonction de création de ligne
     [RPC]
-    void CreateLine()
+    public void CreateLine()
     {
         if (nbLineCreated > 0)
             MoveMap(ref line);
@@ -66,6 +67,12 @@ public class GenerateLineScript : MonoBehaviour {
             isIBlock = false;
             isBlock = false;
         }
+        
+    }
+
+    [RPC]
+    void incrementLineCreated()
+    {
         nbLineCreated += 1;
     }
 
